@@ -1,7 +1,7 @@
 # SpringMVCFilmCRUD
 
-# Description
+## Description
 
-# Technologies Used
+## Technologies Used
 
-# Lessons Learned
+## Lessons Learned
