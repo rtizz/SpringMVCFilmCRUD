@@ -8,11 +8,11 @@ public class Film {
 	private int filmId;
 	private String title;
 	private String desc;
-	private Integer releaseYear;
+	private int releaseYear;
 	private int langId;
 	private int rentDur;
 	private double rate;
-	private Integer length;
+	private int length;
 	private double repCost;
 	private String rating;
 	private String features;
@@ -23,6 +23,13 @@ public class Film {
 	public Film() {}
 	
 	
+	public Film(int filmId, String title, Integer releaseYear, String rating, String desc) {
+		this.filmId = filmId;
+		this.title = title;
+		this.desc = desc;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+	}
 	public Film(int filmId, String title, Integer releaseYear, String rating, String desc, String category) {
 		this.filmId = filmId;
 		this.title = title;
@@ -45,7 +52,6 @@ public class Film {
 		this.repCost = repCost;
 		this.rating = rating;
 		this.features = features;
-		this.category = category;
 	}
 
 
@@ -197,9 +203,9 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [filmId=" + filmId + ", title=" + title + ", desc=" + desc + ", releaseYear=" + releaseYear
+		return "Film filmId=" + filmId + ", title=" + title + ", desc=" + desc + ", releaseYear=" + releaseYear
 				+ ", langId=" + langId + ", rentDur=" + rentDur + ", rate=" + rate + ", length=" + length + ", repCost="
-				+ repCost + ", rating=" + rating + ", features=" + features + ", actor=" + actor + "]";
+				+ repCost + ", rating=" + rating + ", features=" + features ;
 	}
 
 

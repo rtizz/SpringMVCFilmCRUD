@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.film.data.FilmDAO;
 import com.skilldistillery.film.entities.Film;
@@ -27,14 +28,16 @@ public class FilmController {
 //	}
 	
 	
-	  @RequestMapping(path = "FilmEntry.do", method = RequestMethod.GET)
-	  public ModelAndView filmEntry(Film film) {
+	  @RequestMapping(path = "FilmEntry.do", method = RequestMethod.POST)
+	  public ModelAndView filmEntry(Film film, RedirectAttributes redir) {
 	    ModelAndView mv = new ModelAndView();
 	    Film addFilm = filmDao.createFilm(film);
 	    mv.addObject("film", addFilm);
-	    mv.setViewName("result");
+	    
+	    mv.setViewName("newfilmresult");
 	    return mv;
 	  }
+		
 	
 	  @RequestMapping(path = "keyword.do", params = "keyword", method = RequestMethod.GET)
 	  public ModelAndView getFilmByKeyword(String keyword) {
