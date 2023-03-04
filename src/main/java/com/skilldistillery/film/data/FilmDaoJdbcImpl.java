@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,8 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		Film film = null;
 		try {
 			Connection conn = DriverManager.getConnection(URL, USER, PASS);
-			String sql = "SELECT film.*, lang.name FROM film JOIN language lang ON lang.id = film.language_id WHERE film.id = ?";
+			String sql = "SELECT film.*, cat.name FROM film JOIN film_category ON film.id = film_category.film_id" 
+			+ " JOIN category cat ON film_category.category_id = cat.id WHERE film.id = ?";
 	
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
@@ -55,10 +57,11 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				double repCost = filmResult.getDouble("replacement_cost");
 				String rating = filmResult.getString("rating");
 				String features = filmResult.getString("special_features");
-				String language = filmResult.getString("name");
+				String category = filmResult.getString("name");
+				System.out.println(category);
 				List<Actor> actor = findActorsByFilmId(filmId);
 				film = new Film(filmId, title, desc, releaseYear, langId, rentDur, rate, length, repCost, rating,
-						features, language);
+						features, category);
 				film.setActor(actor);
 			}
 			if (!hasReturn) {
@@ -114,9 +117,10 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 		try {
 			Connection conn = DriverManager.getConnection(URL, USER, PASS);
-			String sql = "SELECT film.id, title, release_year, rating, description, lang.name FROM film ";
-					sql += "JOIN language lang ON lang.id = film.language_id ";
-					sql += "WHERE title LIKE ? OR description LIKE ?";
+			String sql = "SELECT film.id, title, release_year, rating, description, cat.name FROM film ";
+					sql += "JOIN film_category ON film.id = film_category.film_id";
+					sql += " JOIN category cat ON film_category.category_id = cat.id";
+					sql += " WHERE title LIKE ? OR description LIKE ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%" + keyword + "%");
 			stmt.setString(2, "%" + keyword + "%"); 
@@ -128,8 +132,8 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				String description = searchResult.getString("description");
 				Integer releaseYear = searchResult.getInt("release_year");
 				String rating = searchResult.getString("rating");
-				String language = searchResult.getString("name");
-				filmList = new Film(filmID, title, releaseYear, rating, description, language);
+				String category = searchResult.getString("name");
+				filmList = new Film(filmID, title, releaseYear, rating, description, category);
 				kwSearch.add(filmList);
 				kwActor = findActorsByFilmId(filmList.getFilmId());
 				filmList.setActor(kwActor);
@@ -215,55 +219,38 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	@Override
 	public Film createFilm(Film film) {
 	  Connection conn = null;
-//	  try {
-//	    conn = DriverManager.getConnection(URL, USER, PASS);
-//	    conn.setAutoCommit(false); // START TRANSACTION
-//	    String sql = "INSERT INTO film (title, description, release_year,"
-//	    		+ " length, rating) "
-//	                     + " VALUES (?,?,?,?,?,)";
-//	    PreparedStatement stmt = conn.prepareStatement(sql, stmt.RETURN_GENERATED_KEYS);
-//	    //TODO Update film criteria
-//	    stmt.setString(1, film.getTitle());
-//	    stmt.setString(2, film.getDesc());
-//	    stmt.setInt(3, film.getReleaseYear());
-//	    stmt.setInt(4, film.getLength());
-//	    stmt.setString(5, film.getRating());
-////	    stmt.setString(2, actor.getLastName());
-////	    stmt.setString(2, actor.getLastName());
-////	    stmt.setString(2, actor.getLastName());
-////	    stmt.setString(2, actor.getLastName());
-////	    stmt.setString(2, actor.getLastName());
-////	    stmt.setString(2, actor.getLastName());
-////	    int updateCount = stmt.executeUpdate();
-//	    if (updateCount == 1) {
-//	      ResultSet keys = stmt.getGeneratedKeys();
-//	      if (keys.next()) {
-//	        int filmId = keys.getInt(1);
-//	        film.setFilmId(filmId);
-//	        if (actor.getFilms() != null && actor.getFilms().size() > 0) {
-//	          sql = "INSERT INTO film (film_id, actor_id) VALUES (?,?)";
-//	          stmt = conn.prepareStatement(sql);
-//	          for (Film film : actor.getFilms()) {
-//	            stmt.setInt(1, film.getFilmId());
-//	            stmt.setInt(2, newActorId);
-//	            updateCount = stmt.executeUpdate();
-//	          }
-//	        }
-//	      }
-//	    } else {
-//	      film = null;
-//	    }
-//	    conn.commit(); // COMMIT TRANSACTION
-//	  } catch (SQLException sqle) {
-//	    sqle.printStackTrace();
-//	    if (conn != null) {
-//	      try { conn.rollback(); }
-//	      catch (SQLException sqle2) {
-//	        System.err.println("Error trying to rollback");
-//	      }
-//	    }
-//	    throw new RuntimeException("Error inserting actor " + actor);
-//	  }
+	  try {
+	    conn = DriverManager.getConnection(URL, USER, PASS);
+	    conn.setAutoCommit(false); 
+	    String sql = "INSERT INTO film (title, description, release_year,"
+	    		+ " length, rating) "
+	                     + " VALUES (?,?,?,?,?,)";
+	    PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+	    stmt.setString(1, film.getTitle());
+	    stmt.setString(2, film.getDesc());
+	    stmt.setInt(3, film.getReleaseYear());
+	    stmt.setInt(4, film.getLength());
+	    stmt.setString(5, film.getRating());
+	    int updateCount = stmt.executeUpdate();
+	    if (updateCount == 1) {
+	      ResultSet keys = stmt.getGeneratedKeys();
+	      if (keys.next()) {
+	        int filmId = keys.getInt(1);
+	        film.setFilmId(filmId);
+	        }
+	      }
+	    conn.commit(); // COMMIT TRANSACTION
+	  } catch (SQLException sqle) {
+	    sqle.printStackTrace();
+	    if (conn != null) {
+	      try { conn.rollback(); }
+	      catch (SQLException sqle2) {
+	        System.err.println("Error trying to rollback");
+	      }
+	    }
+	    throw new RuntimeException("Error inserting actor " + film);
+	  }
 	  return film;
 	}
 

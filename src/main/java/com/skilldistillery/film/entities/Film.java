@@ -17,22 +17,23 @@ public class Film {
 	private String rating;
 	private String features;
 	private String language;
+	private String category;
 	private List<Actor> actor;
 	
 	public Film() {}
 	
 	
-	public Film(int filmId, String title, Integer releaseYear, String rating, String desc, String language) {
+	public Film(int filmId, String title, Integer releaseYear, String rating, String desc, String category) {
 		this.filmId = filmId;
 		this.title = title;
 		this.desc = desc;
 		this.releaseYear = releaseYear;
 		this.rating = rating;
-		this.language = language;
+		this.category = category;
 	}
 
 	public Film(int filmId, String title, String desc, Integer releaseYear, int langId, int rentDur, double rate,
-			Integer length, double repCost, String rating, String features, String language) {
+			Integer length, double repCost, String rating, String features, String category) {
 		this.filmId = filmId;
 		this.title = title;
 		this.desc = desc;
@@ -44,7 +45,7 @@ public class Film {
 		this.repCost = repCost;
 		this.rating = rating;
 		this.features = features;
-		this.language = language;
+		this.category = category;
 	}
 
 
@@ -180,6 +181,17 @@ public class Film {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	
+	
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 

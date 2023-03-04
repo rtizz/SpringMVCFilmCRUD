@@ -41,7 +41,7 @@ public class FilmController {
 	    ModelAndView mv = new ModelAndView();
 	    List<Film> search = filmDao.findFilmByKeywordSearch(keyword);
 	    mv.addObject("keyword", search);
-	    mv.setViewName("result");
+	    mv.setViewName("keywordresult");
 	    return mv;
 	  }
 
