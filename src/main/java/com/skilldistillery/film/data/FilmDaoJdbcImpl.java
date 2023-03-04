@@ -218,30 +218,30 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 //	  try {
 //	    conn = DriverManager.getConnection(URL, USER, PASS);
 //	    conn.setAutoCommit(false); // START TRANSACTION
-//	    String sql = "INSERT INTO film (id, title, description, release_year, language_id, rental duration, rental_rate, length, replacement_cost, rating, special_features) "
-//	                     + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+//	    String sql = "INSERT INTO film (title, description, release_year,"
+//	    		+ " length, rating) "
+//	                     + " VALUES (?,?,?,?,?,)";
 //	    PreparedStatement stmt = conn.prepareStatement(sql, stmt.RETURN_GENERATED_KEYS);
 //	    //TODO Update film criteria
-//	    stmt.setString(1, film.getFilmId());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(3, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    stmt.setString(2, actor.getLastName());
-//	    int updateCount = stmt.executeUpdate();
+//	    stmt.setString(1, film.getTitle());
+//	    stmt.setString(2, film.getDesc());
+//	    stmt.setInt(3, film.getReleaseYear());
+//	    stmt.setInt(4, film.getLength());
+//	    stmt.setString(5, film.getRating());
+////	    stmt.setString(2, actor.getLastName());
+////	    stmt.setString(2, actor.getLastName());
+////	    stmt.setString(2, actor.getLastName());
+////	    stmt.setString(2, actor.getLastName());
+////	    stmt.setString(2, actor.getLastName());
+////	    stmt.setString(2, actor.getLastName());
+////	    int updateCount = stmt.executeUpdate();
 //	    if (updateCount == 1) {
 //	      ResultSet keys = stmt.getGeneratedKeys();
 //	      if (keys.next()) {
-//	        int newActorId = keys.getInt(1);
-//	        actor.setId(newActorId);
+//	        int filmId = keys.getInt(1);
+//	        film.setFilmId(filmId);
 //	        if (actor.getFilms() != null && actor.getFilms().size() > 0) {
-//	          sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+//	          sql = "INSERT INTO film (film_id, actor_id) VALUES (?,?)";
 //	          stmt = conn.prepareStatement(sql);
 //	          for (Film film : actor.getFilms()) {
 //	            stmt.setInt(1, film.getFilmId());
