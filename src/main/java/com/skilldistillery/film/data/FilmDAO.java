@@ -13,7 +13,7 @@ public interface FilmDAO {
 	  public List<Film> findFilmByKeywordSearch(String keyword);
 	  public Actor findActorById(int actorId) throws SQLException;
 	  
-	//  public boolean saveFilm(Film film);
-	//  public Film createFilm(Film film);
-	//  public boolean deleteFilm(Film film);
+	  public boolean updateFilm(Film film);
+	  public Film createFilm(Film film);
+	  public boolean deleteFilm(Film film);
 }
