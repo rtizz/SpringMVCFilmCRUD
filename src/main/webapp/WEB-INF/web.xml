@@ -12,5 +12,5 @@
 		<servlet-name>FilmSite</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-  
+	
 </web-app>

@@ -32,7 +32,7 @@
 						<td>${k.category}</td>
 					</tr>
 					<tr>
-						<td colspan="6"><strong>Actors/Actresses</strong>${k.actor}</td>
+						<td colspan="6"><strong>Cast:</strong>${k.actor}</td>
 					</tr>
 				</c:forEach>
 				</table>

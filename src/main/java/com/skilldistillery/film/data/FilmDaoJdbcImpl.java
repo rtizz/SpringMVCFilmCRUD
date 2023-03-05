@@ -50,11 +50,18 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				hasReturn = true;
 				String title = filmResult.getString("title");
 				String desc = filmResult.getString("description");
-				Integer releaseYear = filmResult.getInt("release_year");
+				int releaseYear = filmResult.getInt("release_year");
+				int langauge = filmResult.getInt("language_id");
+				int duration = filmResult.getInt("rental_duration");
+				double rRate = filmResult.getDouble("rental_rate");
+				int length = filmResult.getInt("length");
+				double replace = filmResult.getDouble("replacement_cost");
 				String rating = filmResult.getString("rating");
+				String special = filmResult.getString("special_features");
 				String category = filmResult.getString("name");
+
 				List<Actor> actor = findActorsByFilmId(filmId);
-				film = new Film(filmId, title, releaseYear, rating, desc, category);
+				film = new Film(filmId, title,  desc, releaseYear, langauge, duration, rRate, length, replace, rating, special, category);
 				film.setActor(actor);
 			}
 			
@@ -79,10 +86,17 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 					hasReturn = true;
 					String title = filmResult.getString("title");
 					String desc = filmResult.getString("description");
-					Integer releaseYear = filmResult.getInt("release_year");
+					int releaseYear = filmResult.getInt("release_year");
+					int langauge = filmResult.getInt("language_id");
+					int duration = filmResult.getInt("rental_duration");
+					double rRate = filmResult.getDouble("rental_rate");
+					int length = filmResult.getInt("length");
+					double replace = filmResult.getDouble("replacement_cost");
 					String rating = filmResult.getString("rating");
+					String special = filmResult.getString("special_features");
+					String category = null;
 					List<Actor> actor = findActorsByFilmId(filmId);
-					film = new Film(filmId, title, releaseYear, rating, desc);
+					film = new Film(filmId, title,  desc, releaseYear, langauge, duration, rRate, length, replace, rating, special, category);
 					film.setActor(actor);
 				}
 				
@@ -204,23 +218,10 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 //		               + " WHERE id=?";
 //		    PreparedStatement stmt = conn.prepareStatement(sql);
 //		    //TODO Update to film an respective getters from query
-//		    stmt.setString(1, actor.getFirstName());
-//		    stmt.setString(2, actor.getLastName());
-//		    stmt.setInt(3, actor.getId());
+//		    stmt.setInt(1, film.getFilmId());
 //		    int updateCount = stmt.executeUpdate();
 //		    if (updateCount == 1) {
-//		      // Replace film list
-//		      sql = "DELETE FROM film_actor WHERE actor_id = ?";
-//		      stmt = conn.prepareStatement(sql);
-//		      stmt.setInt(1, actor.getId());
-//		      updateCount = stmt.executeUpdate();
-//		      sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
-//		      stmt = conn.prepareStatement(sql);
-//		      for (Film film : actor.getFilms()) {
-//		        stmt.setInt(1, film.getFilmId());
-//		        stmt.setInt(2, actor.getId());
-//		        updateCount = stmt.executeUpdate();
-//		      }
+////		      }
 //		      conn.commit();           // COMMIT TRANSACTION
 //		    }
 //		  } catch (SQLException sqle) {

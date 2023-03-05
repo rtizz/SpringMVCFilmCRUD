@@ -23,14 +23,14 @@ public class Film {
 	public Film() {}
 	
 	
-	public Film(int filmId, String title, Integer releaseYear, String rating, String desc) {
+	public Film(int filmId, String title, int releaseYear, String rating, String desc) {
 		this.filmId = filmId;
 		this.title = title;
 		this.desc = desc;
 		this.releaseYear = releaseYear;
 		this.rating = rating;
 	}
-	public Film(int filmId, String title, Integer releaseYear, String rating, String desc, String category) {
+	public Film(int filmId, String title, int releaseYear, String rating, String desc, String category) {
 		this.filmId = filmId;
 		this.title = title;
 		this.desc = desc;
@@ -39,8 +39,8 @@ public class Film {
 		this.category = category;
 	}
 
-	public Film(int filmId, String title, String desc, Integer releaseYear, int langId, int rentDur, double rate,
-			Integer length, double repCost, String rating, String features, String category) {
+	public Film(int filmId, String title, String desc, int releaseYear, int langId, int rentDur, double rate,
+			int length, double repCost, String rating, String features, String category) {
 		this.filmId = filmId;
 		this.title = title;
 		this.desc = desc;

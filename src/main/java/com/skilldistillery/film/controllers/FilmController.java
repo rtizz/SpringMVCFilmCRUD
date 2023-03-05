@@ -60,18 +60,35 @@ public class FilmController {
 	  @RequestMapping(path = "filmDelete.do", params = "delete", method = RequestMethod.POST)
 	  public ModelAndView deleteFilm(@RequestParam("delete") Integer filmid) throws SQLException {
 	    ModelAndView mv = new ModelAndView();
+	    String error = "Film could not be deleted";
 	    boolean deleted = filmDao.deleteFilm(filmid);
-	    mv.addObject("verifydelete", deleted);
+	    Film film = filmDao.findFilmById(filmid);
+//	    if (deleted == true) {
+	    	mv.addObject("filmtodelete", film);
+//	    } else {
+//	    	mv.addObject("notdeleted", deleted);
+//	    }
 	    mv.setViewName("deletefilm");
 	    return mv;
 	  }
-//	  
-//	  @RequestMapping(path = "filmUpdate.do", params = "filmid", method = RequestMethod.GET)
-//	  public ModelAndView getFilmById(Integer filmid) throws SQLException {
+	  
+	  @RequestMapping(path = "updateFilmForm.do", method = RequestMethod.POST)
+	  public ModelAndView updateFilm(@RequestParam("update") Integer filmid) throws SQLException {
+	    ModelAndView mv = new ModelAndView();
+	    Film film = filmDao.findFilmById(filmid);
+//	    boolean updated = filmDao.updateFilm(film);
+	    mv.addObject("filmtoupdate", film);
+	    mv.setViewName("updatefilmform");
+	    return mv;
+	  }
+	  
+//	  @RequestMapping(path = "filmupdated.do", method = RequestMethod.POST)
+//	  public ModelAndView filmUpdated(@RequestParam("update") Film film) throws SQLException {
 //	    ModelAndView mv = new ModelAndView();
 //	    Film film = filmDao.findFilmById(filmid);
-//	    mv.addObject("filmdetails", film);
-//	    mv.setViewName("idresult");
+//	    boolean updated = filmDao.updateFilm(film);
+//	    mv.addObject("filmtoupdate", film);
+//	    mv.setViewName("updatefilmform");
 //	    return mv;
 //	  }
 
