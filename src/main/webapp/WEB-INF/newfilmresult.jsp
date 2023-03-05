@@ -32,7 +32,7 @@
 					<td>${film.title}</td>
 					<td>${film.desc}</td>
 					<td>${film.releaseYear}</td>
-					<td>${filmd.langId}</td>
+					<td>${film.langId}</td>
 					<td>${film.rentDur}</td>
 					<td>${film.rate}</td>
 					<td>${film.length}</td>
