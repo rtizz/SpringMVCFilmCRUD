@@ -238,7 +238,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 	@Override
 	public Film createFilm(Film film) {
-//		Film newfilm = null;
+
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASS);
@@ -290,31 +290,38 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	}
 
 	@Override
-	public boolean deleteFilm(Film film) {
+	public boolean deleteFilm(Integer filmid) {
 		Connection conn = null;
-//	  try {
-//	    conn = DriverManager.getConnection(URL, USER, PASS);
-//	    conn.setAutoCommit(false); // START TRANSACTION
-//	    String sql = "DELETE FROM film_actor WHERE actor_id = ?";
-//	    PreparedStatement stmt = conn.prepareStatement(sql);
-//	    stmt.setInt(1, actor.getId());
-//	    int updateCount = stmt.executeUpdate();
-//	    sql = "DELETE FROM actor WHERE id = ?";
-//	    stmt = conn.prepareStatement(sql);
-//	    stmt.setInt(1, actor.getId());
-//	    updateCount = stmt.executeUpdate();
-//	    conn.commit();             // COMMIT TRANSACTION
-//	  }
-//	  catch (SQLException sqle) {
-//	    sqle.printStackTrace();
-//	    if (conn != null) {
-//	      try { conn.rollback(); }
-//	      catch (SQLException sqle2) {
-//	        System.err.println("Error trying to rollback");
-//	      }
-//	    }
-//	    return false;
-//	  }
+		int id = filmid;
+	  try {
+	    conn = DriverManager.getConnection(URL, USER, PASS);
+	    conn.setAutoCommit(false); // START TRANSACTION
+	    String sql = "DELETE FROM film WHERE id = ?";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1, id);
+	    // COMMIT TRANSACTION
+		try {
+			int updateCount = stmt.executeUpdate();
+			System.out.println(updateCount + "added to database");
+			if (updateCount == 1) {
+				conn.commit();
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // COMMIT TRANSACTION
+	  }
+	  catch (SQLException sqle) {
+	    sqle.printStackTrace();
+	    if (conn != null) {
+	      try { conn.rollback(); }
+	      catch (SQLException sqle2) {
+	        System.err.println("Error trying to rollback");
+	      }
+	    }
+	    return false;
+	  }
+
 		return true;
 	}
 

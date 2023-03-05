@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,6 +57,22 @@ public class FilmController {
 	    mv.setViewName("idresult");
 	    return mv;
 	  }
-
+	  @RequestMapping(path = "filmDelete.do", params = "delete", method = RequestMethod.POST)
+	  public ModelAndView deleteFilm(@RequestParam("delete") Integer filmid) throws SQLException {
+	    ModelAndView mv = new ModelAndView();
+	    boolean deleted = filmDao.deleteFilm(filmid);
+	    mv.addObject("verifydelete", deleted);
+	    mv.setViewName("deletefilm");
+	    return mv;
+	  }
+//	  
+//	  @RequestMapping(path = "filmUpdate.do", params = "filmid", method = RequestMethod.GET)
+//	  public ModelAndView getFilmById(Integer filmid) throws SQLException {
+//	    ModelAndView mv = new ModelAndView();
+//	    Film film = filmDao.findFilmById(filmid);
+//	    mv.addObject("filmdetails", film);
+//	    mv.setViewName("idresult");
+//	    return mv;
+//	  }
 
 }

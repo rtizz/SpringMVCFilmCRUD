@@ -47,7 +47,5 @@
 			</c:otherwise>
 		</c:choose>
 <a href="index.html">Home</a>
-<h2>Output</h2>
-${film}
 </body>
 </html>
