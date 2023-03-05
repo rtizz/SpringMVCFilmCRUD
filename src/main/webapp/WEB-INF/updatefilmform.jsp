@@ -13,7 +13,7 @@
 		<br>
 		Film ID cannot be modified
 	<form action="filmUpdated.do" method="POST">
-		FilmId: ${update.filmId}<br>
+		FilmId: <input type="text" name="filmId" value="${update.filmId}" /><br>
 		Title:
 		<input type="text" name="title" value="${update.title}"/> 
 		<br>
