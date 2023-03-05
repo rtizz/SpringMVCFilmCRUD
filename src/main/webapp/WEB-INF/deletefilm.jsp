@@ -9,6 +9,8 @@
 </head>
 <body>
 	<div>
+	<c:choose>
+			<c:when test="${truedeleted = true}">
 		<c:choose>
 			<c:when test="${! empty filmtodelete}">
 			<h2>The following film was successfully deleted</h2>
@@ -28,6 +30,12 @@
 				${notdeleted}
 				<a href="index.html">Home</a>
 			</c:otherwise>
+		</c:choose>
+		</c:when>
+		<c:otherwise>
+			${falsedeleted}<br>
+			${haschildren}
+		</c:otherwise>
 		</c:choose>
 	</div>
 </body>

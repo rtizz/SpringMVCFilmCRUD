@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +9,8 @@
 </head>
 <body>
 		<h2>Update The Desired Fields</h2>
-		Film ID cannot be modified</p>
-	<form action="updateFilmForm.do" method="POST">
+		Film ID cannot be modified
+	<form action="filmUpdated.do" method="GET">
 		Title:
 		<input type="text" name="title" value="${filmtoupdate.title}"/> 
 		<br>

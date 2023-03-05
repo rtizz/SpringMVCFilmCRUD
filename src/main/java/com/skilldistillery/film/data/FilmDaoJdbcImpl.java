@@ -207,36 +207,44 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	}
 
 	@Override
-	public boolean updateFilm(Film film) {
+	public Film updateFilm(Film film) {
 		Connection conn = null;
-//		  try {
-//		    conn = DriverManager.getConnection(URL, USER, PASS);
-//		    conn.setAutoCommit(false); // START TRANSACTION
-//		    
-//		    //TODO Change to film query
-//		    String sql = "UPDATE actor SET first_name=?, last_name=? " 
-//		               + " WHERE id=?";
-//		    PreparedStatement stmt = conn.prepareStatement(sql);
-//		    //TODO Update to film an respective getters from query
-//		    stmt.setInt(1, film.getFilmId());
-//		    int updateCount = stmt.executeUpdate();
-//		    if (updateCount == 1) {
-////		      }
-//		      conn.commit();           // COMMIT TRANSACTION
-//		    }
-//		  } catch (SQLException sqle) {
-//		    sqle.printStackTrace();
-//		    if (conn != null) {
-//		      try { conn.rollback(); } // ROLLBACK TRANSACTION ON ERROR
-//		      catch (SQLException sqle2) {
-//		        System.err.println("Error trying to rollback");
-//		      }
-//		    }
-//		    return false;
-//		  }
-		return true;
+		Film newfilm = film;
+		  try {
+		    conn = DriverManager.getConnection(URL, USER, PASS);
+		    conn.setAutoCommit(false); // START TRANSACTION
+		    
+		    //TODO Change to film query
+		    String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?," 
+		    		+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=?, special_features=?" 
+		               + " WHERE id=?";
+		    PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDesc());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLangId());
+			stmt.setInt(5, film.getRentDur());
+			stmt.setDouble(6, film.getRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getRepCost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getFeatures());
+			stmt.setInt(11, film.getFilmId());
+			int updateCount = stmt.executeUpdate();
+			conn.commit();
+			stmt.close();
+			conn.close(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return newfilm;
 	}
-
 	@Override
 	public Film createFilm(Film film) {
 

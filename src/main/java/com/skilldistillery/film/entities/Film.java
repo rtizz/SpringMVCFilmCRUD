@@ -52,6 +52,7 @@ public class Film {
 		this.repCost = repCost;
 		this.rating = rating;
 		this.features = features;
+		this.category = category;
 	}
 
 

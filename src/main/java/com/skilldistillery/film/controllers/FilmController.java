@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,36 +59,55 @@ public class FilmController {
 	  @RequestMapping(path = "filmDelete.do", params = "delete", method = RequestMethod.POST)
 	  public ModelAndView deleteFilm(@RequestParam("delete") Integer filmid) throws SQLException {
 	    ModelAndView mv = new ModelAndView();
-	    String error = "Film could not be deleted";
-	    boolean deleted = filmDao.deleteFilm(filmid);
+	    boolean deleted;
+	    String error = "Cannot Delete: Film has child pages";
+	    String error2 = "Unable to delete film";
+	    if (filmid > 1000) {
 	    Film film = filmDao.findFilmById(filmid);
-//	    if (deleted == true) {
+	    deleted = filmDao.deleteFilm(filmid);
+	    if (deleted == true) {
 	    	mv.addObject("filmtodelete", film);
-//	    } else {
-//	    	mv.addObject("notdeleted", deleted);
-//	    }
+	    	mv.addObject("truedeleted", deleted);
+	    } else {
+	    	mv.addObject("notdeleted", error2);
+	    }
 	    mv.setViewName("deletefilm");
 	    return mv;
+	    } else {
+	    	deleted = false;
+	    	mv.addObject("falsedeleted", deleted);
+	    	mv.addObject("haschildren", error);
+		    mv.setViewName("deletefilm");
+		    return mv;
+	    }
 	  }
 	  
-	  @RequestMapping(path = "updateFilmForm.do", method = RequestMethod.POST)
+	  @RequestMapping(path = "updateFilmForm.do")
 	  public ModelAndView updateFilm(@RequestParam("update") Integer filmid) throws SQLException {
 	    ModelAndView mv = new ModelAndView();
 	    Film film = filmDao.findFilmById(filmid);
-//	    boolean updated = filmDao.updateFilm(film);
 	    mv.addObject("filmtoupdate", film);
 	    mv.setViewName("updatefilmform");
 	    return mv;
 	  }
 	  
-//	  @RequestMapping(path = "filmupdated.do", method = RequestMethod.POST)
-//	  public ModelAndView filmUpdated(@RequestParam("update") Film film) throws SQLException {
-//	    ModelAndView mv = new ModelAndView();
-//	    Film film = filmDao.findFilmById(filmid);
-//	    boolean updated = filmDao.updateFilm(film);
-//	    mv.addObject("filmtoupdate", film);
-//	    mv.setViewName("updatefilmform");
-//	    return mv;
-//	  }
+	  @RequestMapping(path = "filmUpdated.do")
+	  public ModelAndView filmUpdated(Film film, RedirectAttributes reader) throws SQLException {
+	    ModelAndView mv = new ModelAndView();
+	    reader.addFlashAttribute("film", film); 
+	    String failure= "Unable to update";
+	    int filmId = film.getFilmId();
+	    filmDao.updateFilm(film);
+	    mv.addObject("updatedfilmid", filmId);
+	    mv.addObject("updatedfilm", film);
+	    mv.setViewName("filmupdated");
+	    return mv;
+//	    } else {
+//	    	mv.addObject("updatefailed", failure);
+//		    mv.setViewName("filmupdated");
+//		    return mv;
+//	    }
+	  }
+
 
 }
