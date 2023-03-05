@@ -6,11 +6,14 @@
 </head>
 <body>
 	<h3>Enter The Following Film Fields</h3>
+		<a href="index.html">Home</a><br>
 	<form action="FilmEntry.do" method="POST">
-		Title: <input type="text" name="title" /> <br> <label
-			for="description">Description:</label><br>
+		Title: <input type="text" name="title" /> <br> 
+		<label for="description">Description:</label><br>
 		<textarea id="description" name="desc" rows="4" cols="50"></textarea>
-		<br> Release Year: <input type="text" name="releaseYear" /> <br>
+		<br> 
+		Release Year: 
+		<input type="text" name="releaseYear" /> <br>
 		<label>Language Id:</label> 
 		<select name="langId">
 			<option value=1>English</option>
@@ -22,10 +25,13 @@
 		</select> <br> 
 		Rental Duration: <input type="text" name="rentDur" /> 
 		<br>
-		Rental Rate: <input type="text" name="rate" /> <br> Film Length:
-		<input type="text" name="length" /> <br> Replacement Cost: <input
-			type="text" name="repCost" /> <br> 
-			<label>Rating:</label> 
+		Rental Rate: 
+		<input type="text" name="rate" /> <br> 
+		Film Length:
+		<input type="text" name="length" /> <br> 
+		Replacement Cost: <input type="text" name="repCost" /> <br> 
+			
+		<label>Rating:</label> 
 			<select name="rating">
 			<option value="PG">PG</option>
 			<option value="G">G</option>
@@ -44,5 +50,6 @@
 		 <label for="Behind the Scenes">Behind the Scenes</label><br> <br> 
 		 <input type="submit" value="Submit Film" />
 	</form>
+
 </body>
 </html>

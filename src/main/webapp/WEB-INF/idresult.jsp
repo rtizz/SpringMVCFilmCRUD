@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div>
+	<a href="index.html">Home</a><br>
 		<c:choose>
 			<c:when test="${! empty filmdetails}">
 				<table>
@@ -61,17 +62,16 @@
 						</td>
 
 						<td>
-							<form action="updateFilmForm.do" method="POST">
+							<form action="updateFilmForm.do" method="GET">
 							<button name="update" type="submit" value="${filmdetails.filmId}">Update Film</button>
 						</form>
-						<%-- <a href="updateFilmForm.do?id=${filmdetails.filmId}">Update Film</a> --%>
 						</td>
 					</tr>
 				</table>
 			</c:when>
 			<c:otherwise>
 				<p>No Film found</p>
-				<a href="index.html">Home</a>
+
 			</c:otherwise>
 		</c:choose>
 	</div>

@@ -34,6 +34,19 @@
 					<tr>
 						<td colspan="6"><strong>Cast:</strong>${k.actor}</td>
 					</tr>
+					<tr>
+						<td>
+						<form action="filmDelete.do" method="POST">
+							<button name="delete" type="submit" value="${k.filmId}">Delete Film</button>
+						</form>
+						</td>
+
+						<td>
+							<form action="updateFilmForm.do" method="GET">
+							<button name="update" type="submit" value="${k.filmId}">Update Film</button>
+						</form>
+						</td>
+					</tr>
 				</c:forEach>
 				</table>
 				<br>

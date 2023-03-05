@@ -82,32 +82,47 @@ public class FilmController {
 	    }
 	  }
 	  
-	  @RequestMapping(path = "updateFilmForm.do")
+	  @RequestMapping(path = "updateFilmForm.do", params = "update", method = RequestMethod.GET)
 	  public ModelAndView updateFilm(@RequestParam("update") Integer filmid) throws SQLException {
 	    ModelAndView mv = new ModelAndView();
 	    Film film = filmDao.findFilmById(filmid);
-	    mv.addObject("filmtoupdate", film);
+	    mv.addObject("update", film);
 	    mv.setViewName("updatefilmform");
 	    return mv;
 	  }
 	  
-	  @RequestMapping(path = "filmUpdated.do")
-	  public ModelAndView filmUpdated(Film film, RedirectAttributes reader) throws SQLException {
+	  @RequestMapping(path = "filmUpdated.do", method = RequestMethod.POST)
+	  public ModelAndView filmUpdated(Film film, RedirectAttributes redir){
 	    ModelAndView mv = new ModelAndView();
-	    reader.addFlashAttribute("film", film); 
-	    String failure= "Unable to update";
-	    int filmId = film.getFilmId();
-	    filmDao.updateFilm(film);
-	    mv.addObject("updatedfilmid", filmId);
-	    mv.addObject("updatedfilm", film);
-	    mv.setViewName("filmupdated");
-	    return mv;
+	    Film updated = filmDao.updateFilm(film);
+		if (updated != null) {
+		redir.addFlashAttribute("film", film);
+		mv.setViewName("redirect:lastUpdate.do");
+		return mv;
+		}
+		else {
+			mv.setViewName("errors/updateError");
+			return mv;
+		}
+		
+//	    String failure= "Unable to update";
+//	    int filmId = film.getFilmId();
+//	    mv.addObject("updatedfilmid", filmId);
+//	    mv.addObject("updatedfilm", updated);
+//	    mv.setViewName("filmupdated");
+//	    return mv;
 //	    } else {
 //	    	mv.addObject("updatefailed", failure);
 //		    mv.setViewName("filmupdated");
 //		    return mv;
 //	    }
 	  }
+		@RequestMapping(path = "lastUpdate.do", method = RequestMethod.GET)
+		public ModelAndView updatedFilm() {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("filmupdated");
 
+			return mv;
+		}
 
 }

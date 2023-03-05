@@ -8,8 +8,9 @@
 <title>Update film</title>
 </head>
 <body>
+<a href="index.html">Home</a><br>
 	<c:choose>
-			<c:when test="${! empty updatedfilm}">
+			<c:when test="${! empty film}">
 			<table>
 				<thead>
 					<tr>
@@ -27,17 +28,17 @@
 					</tr>
 				</thead>
 				<tr>
-					<td>${updatedfilmid}</td>
-					<td>${updatedfilm.title}</td>
-					<td>${updatedfilm.desc}</td>
-					<td>${updatedfilm.releaseYear}</td>
-					<td>${updatedfilm.langId}</td>
-					<td>${updatedfilm.rentDur}</td>
-					<td>${updatedfilm.rate}</td>
-					<td>${updatedfilm.length}</td>
-					<td>${updatedfilm.repCost}</td>
-					<td>${updatedfilm.rating}</td>
-					<td>${updatedfilm.features}</td>
+					<td>${film.filmId}</td>
+					<td>${film.title}</td>
+					<td>${film.desc}</td>
+					<td>${film.releaseYear}</td>
+					<td>${film.langId}</td>
+					<td>${film.rentDur}</td>
+					<td>${film.rate}</td>
+					<td>${film.length}</td>
+					<td>${film.repCost}</td>
+					<td>${film.rating}</td>
+					<td>${film.features}</td>
 				</tr>
 			</table>
 			</c:when>
@@ -45,6 +46,6 @@
 				<p>Film not Entered</p>
 			</c:otherwise>
 	</c:choose>
-<a href="index.html">Home</a>
+
 </body>
 </html>

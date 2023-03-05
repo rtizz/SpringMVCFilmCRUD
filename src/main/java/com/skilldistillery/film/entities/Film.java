@@ -86,12 +86,12 @@ public class Film {
 	}
 
 
-	public Integer getReleaseYear() {
+	public int getReleaseYear() {
 		return releaseYear;
 	}
 
 
-	public void setReleaseYear(Integer releaseYear) {
+	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
 	}
 
@@ -126,7 +126,7 @@ public class Film {
 	}
 
 
-	public Integer getLength() {
+	public int getLength() {
 		return length;
 	}
 
@@ -165,8 +165,7 @@ public class Film {
 		this.features = features;
 	}
 
-	
-	
+
 
 
 	public List<Actor> getActor() {

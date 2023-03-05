@@ -208,17 +208,17 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 	@Override
 	public Film updateFilm(Film film) {
+		int filmID = film.getFilmId();
 		Connection conn = null;
-		Film newfilm = film;
 		  try {
 		    conn = DriverManager.getConnection(URL, USER, PASS);
-		    conn.setAutoCommit(false); // START TRANSACTION
-		    
-		    //TODO Change to film query
-		    String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?," 
-		    		+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=?, special_features=?" 
-		               + " WHERE id=?";
+		    conn.setAutoCommit(false); 
+		    String sql = "UPDATE film SET title= ?, description= ?, release_year= ?, language_id= ?," 
+		    		+ " rental_duration=? , rental_rate= ?, length= ?, replacement_cost= ?, rating= ?, special_features= ?" 
+		               + " WHERE id= ?";
 		    PreparedStatement stmt = conn.prepareStatement(sql);
+		    System.out.println(film.getTitle());
+		    System.out.println(film.getRating());
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDesc());
 			stmt.setInt(3, film.getReleaseYear());
@@ -229,11 +229,16 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			stmt.setDouble(8, film.getRepCost());
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getFeatures());
-			stmt.setInt(11, film.getFilmId());
+			stmt.setInt(11, filmID);
 			int updateCount = stmt.executeUpdate();
+			System.out.println(updateCount);
+			if (updateCount == 0) {
 			conn.commit();
-			stmt.close();
-			conn.close(); 
+//			stmt.close();
+//			conn.close(); 
+			}else {
+				System.out.println("somethings wrong idiot");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -243,7 +248,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				e1.printStackTrace();
 			}
 		}
-		return newfilm;
+		return film;
 	}
 	@Override
 	public Film createFilm(Film film) {

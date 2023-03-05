@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div>
+	<a href="index.html">Home</a><br>
 	<c:choose>
 			<c:when test="${truedeleted = true}">
 		<c:choose>
@@ -28,7 +29,7 @@
 				</c:when>
 			<c:otherwise>
 				${notdeleted}
-				<a href="index.html">Home</a>
+
 			</c:otherwise>
 		</c:choose>
 		</c:when>
