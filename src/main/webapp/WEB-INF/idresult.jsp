@@ -24,6 +24,7 @@
 							<td>LENGTH</td>
 							<td>REPLACEMENT COST</td>
 							<td>RATING</td>
+							<td>SPECIAL FEATURES</td>
 							<td>CATEGORY</td>
 						</tr>
 					</thead>
@@ -38,6 +39,7 @@
 						<td>${filmdetails.length}</td>
 						<td>${filmdetails.repCost}</td>
 						<td>${filmdetails.rating}</td>
+						<td>${filmdetails.features}</td>
 						<td>${filmdetails.category}</td>
 					</tr>
 					<tr>
