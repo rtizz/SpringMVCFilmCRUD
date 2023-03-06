@@ -13,7 +13,7 @@
 		<br>
 		Film ID cannot be modified
 	<form action="filmUpdated.do" name="updatefilm" action="#" onsubmit="required()" method="POST">
-		FilmId: <input type="text" name="filmId" value="${update.filmId}" readonly /><br> 
+		FilmId: <input type="number" name="filmId" value="${update.filmId}" readonly /><br> 
 		Title:
 		<input type="text" name="title" value="${update.title}"/> 
 		<br>
@@ -55,7 +55,7 @@
 		
 		
 			 <label>Special Features:</label> <br>
-			 <c:choose>
+			<%--  <c:choose>
 			 <c:when test="${empty update.features}">
 			 <strong>Current: No Special Features</strong><br>
 			 </c:when>
@@ -63,14 +63,14 @@
 			 <strong>Current: ${update.features}</strong>
 			 </c:otherwise>
 			 </c:choose>
-			 <br>
-		 <input type="checkbox" name="features">
-		 <label calue="Trailers">Trailers</label><br>
-		 <input type="checkbox" name="features">
+			 <br> --%>
+		 <input type="checkbox" name="features" value="Trailers">
+		 <label for="Trailers">Trailers</label><br>
+		 <input type="checkbox" name="features" value="Commentaries">
 		 <label for="Commentaries">Commentaries</label><br>
-		 <input type="checkbox" name="features">
+		 <input type="checkbox" name="features" value="Deleted Scenes">
 		 <label for="Deleted Scenes">Deleted Scenes</label><br>
-		 <input type="checkbox" name="features">
+		 <input type="checkbox" name="features" value="Behind the Scenes">
 		 <label for="Behind the Scenes">Behind the Scenes</label><br>
 
 		 
