@@ -37,7 +37,7 @@
 		Rental Duration:
 		<input type="number" name="rentDur" min="3" max="14"value="${update.rentDur}"/> 
 		<br>
-		Rental Rate: <input type="number" name="rate" placeholder="1.99" step="0.01" min="4" max="20" value="${update.rate}"/> <br> 
+		Rental Rate: <input type="number" name="rate" placeholder="1.99" step="0.01" min="1" max="20" value="${update.rate}"/> <br> 
 		Film Length:
 		<input type="number" name="length" value="${update.length}" /> <br> 
 		Replacement Cost: <input

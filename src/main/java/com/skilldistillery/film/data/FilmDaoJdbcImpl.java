@@ -160,7 +160,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				int filmID = searchResult.getInt("id");
 				String title = searchResult.getString("title");
 				String description = searchResult.getString("description");
-				Integer releaseYear = searchResult.getInt("release_year");
+				int releaseYear = searchResult.getInt("release_year");
 				String rating = searchResult.getString("rating");
 				String category = searchResult.getString("name");
 				filmList = new Film(filmID, title, releaseYear, rating, description, category);
@@ -168,53 +168,52 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				kwActor = findActorsByFilmId(filmList.getFilmId());
 				filmList.setActor(kwActor);
 			}
-			if (!hasReturn) {
-				System.out.println("Sorry, there are no results for that search. Please try another keyword.");
-			}
-
-			searchResult.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return kwSearch;
-	}
-
-//			String sql2 = "SELECT * FROM Film WHERE title LIKE ? OR description LIKE ? && id > 1000";
-//			PreparedStatement stmt2 = conn.prepareStatement(sql2);
-//			stmt2.setString(1, "%" + keyword + "%");
-//			stmt2.setString(2, "%" + keyword + "%");
-//			ResultSet searchResult2 = stmt2.executeQuery();
-//			while (searchResult2.next()) {
-//				hasReturn = true;
-//				filmID = searchResult2.getInt("id");
-//				title = searchResult2.getString("title");
-//				description = searchResult2.getString("description");
-//				releaseYear = searchResult2.getInt("release_year");
-//				rating = searchResult2.getString("rating");
-//				category = searchResult2.getString("name");
-//				filmList2 = new Film(filmID, title, releaseYear, rating, description, category);
-//				kwSearch.add(filmList2);
-//				kwActor = findActorsByFilmId(filmList2.getFilmId());
-//				filmList2.setActor(kwActor);
-//				}
+//			if (!hasReturn) {
+//				System.out.println("Sorry, there are no results for that search. Please try another keyword.");
+//			}
 //
 //			searchResult.close();
 //			stmt.close();
 //			conn.close();
-//			}
-////			if (!hasReturn) {
-////				System.out.println("Sorry, there are no results for that search. Please try another keyword.");
-////			}
-//
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
 //
 //		return kwSearch;
 //	}
+
+			String sql2 = "SELECT * FROM Film WHERE title LIKE ? OR description LIKE ? && id > 1000";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			stmt2.setString(1, "%" + keyword + "%");
+			stmt2.setString(2, "%" + keyword + "%");
+			ResultSet searchResult2 = stmt2.executeQuery();
+			while (searchResult2.next()) {
+				hasReturn = true;
+				int filmID = searchResult2.getInt("id");
+				String title = searchResult2.getString("title");
+				String description = searchResult2.getString("description");
+				int releaseYear = searchResult2.getInt("release_year");
+				String rating = searchResult2.getString("rating");
+				String category = null;
+				Film filmList2 = new Film(filmID, title, releaseYear, rating, description, category);
+				kwSearch.add(filmList2);
+
+				}
+
+			searchResult.close();
+			stmt.close();
+			conn.close();
+			
+//			if (!hasReturn) {
+//				System.out.println("Sorry, there are no results for that search. Please try another keyword.");
+//			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return kwSearch;
+	}
 
 	@Override
 	public Actor findActorById(int actorId) throws SQLException {
@@ -266,8 +265,6 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			} else {
 				System.out.println("did not commit");
 				conn.commit();
-//			stmt.close();
-//			conn.close(); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
