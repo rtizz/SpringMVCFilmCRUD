@@ -234,7 +234,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 //			stmt.close();
 //			conn.close(); 
 			}else {
-				System.out.println("somethings wrong idiot");
+				System.out.println("Something's Wrong");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
