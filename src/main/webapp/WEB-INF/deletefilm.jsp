@@ -25,7 +25,6 @@
 						<td>${filmtodelete.category}</td>
 					</tr>
 				</table>
-			<a href="index.html">Home</a>
 				</c:when>
 			<c:otherwise>
 				${notdeleted}

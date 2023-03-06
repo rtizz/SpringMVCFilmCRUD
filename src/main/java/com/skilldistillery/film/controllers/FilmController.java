@@ -105,17 +105,6 @@ public class FilmController {
 			return mv;
 		}
 		
-//	    String failure= "Unable to update";
-//	    int filmId = film.getFilmId();
-//	    mv.addObject("updatedfilmid", filmId);
-//	    mv.addObject("updatedfilm", updated);
-//	    mv.setViewName("filmupdated");
-//	    return mv;
-//	    } else {
-//	    	mv.addObject("updatefailed", failure);
-//		    mv.setViewName("filmupdated");
-//		    return mv;
-//	    }
 	  }
 		@RequestMapping(path = "lastUpdate.do", method = RequestMethod.GET)
 		public ModelAndView updatedFilm() {

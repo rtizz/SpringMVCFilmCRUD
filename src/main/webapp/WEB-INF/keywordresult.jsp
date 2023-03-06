@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div>
+		<a href="index.html">Home</a><br>
 		<c:choose>
 			<c:when test="${! empty keyword}">
 			<table >
