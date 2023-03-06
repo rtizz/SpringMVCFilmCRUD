@@ -265,6 +265,9 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				conn.close();
 			} else {
 				System.out.println("did not commit");
+				conn.commit();
+//			stmt.close();
+//			conn.close(); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
